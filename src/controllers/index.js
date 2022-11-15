@@ -1,4 +1,8 @@
 export { register } from "./register"
 export { login } from "./login"
 export { updateEmail } from "./updateEmail"
+export { updatePassword } from "./updatePassword"
 export { verifyOtp } from "./verifyOtp"
+export { userAuthentic } from "./userAuthentic"
+export { logout } from "./logout"
+export { resendOtp } from "./resendOtp"

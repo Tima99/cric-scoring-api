@@ -1,6 +1,6 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt"
-import { generate } from "otp-generator"; "otp-generator"
+import { generateOtp } from "../utils";
 
 const Schema = mongoose.Schema
 
@@ -11,7 +11,7 @@ const userSchema = new Schema({
 }, {timestamps : true})
 
 userSchema.methods.generateOtp = function(){
-    const OTP = generate(6, {upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false})
+    const OTP = generateOtp()
     this.otp = OTP
     return OTP
 }

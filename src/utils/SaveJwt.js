@@ -3,15 +3,15 @@ import jwt from "jsonwebtoken"
 
 export async function SaveJwt(payload, res){
     try {
-        const token = jwt.sign(payload, JWT_SECRET_KEY)
-        const expires = 60
+        const expiresIn = 60 * 60 // minutes
+        const token = jwt.sign(payload, JWT_SECRET_KEY, {expiresIn})
         res.cookie('jwt', token, {
-            expiresIn : expires,
+            sameSite: "none",
             httpOnly: true,
             secure: false
         })
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return Promise.reject(error)
     }
 }

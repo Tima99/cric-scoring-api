@@ -24,7 +24,7 @@ export const sendEmail = async ({to, OTP, subject}) => {
       };
     
       const send = await transporter.sendMail(mailOptions);
-      console.log(send);
+      console.log(send.envelope);
 
   } catch (error) {
     return Promise.reject(error)

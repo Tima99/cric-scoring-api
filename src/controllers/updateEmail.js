@@ -7,8 +7,10 @@ export async function updateEmail(req, res){
 
         const { email, ["new-email"]: newEmail } = req.body
         // validate email
-        const validEmail = validate.email(newEmail)
-        if(!validEmail) throw new ErrorHandler({message: "Email not correct.", code: 422}) 
+        if( !validate.email(newEmail) ) throw new ErrorHandler({message: "Email not correct.", code: 422}) 
+
+        // newEmail is already exists
+        if( await User.findOne({email : newEmail}) ) throw new ErrorHandler({message: "New Email already exists.", code: 422})
         
         const userDoc = await User.findOne({email})
         if(!userDoc) throw new ErrorHandler({message: "User not created.", code: 401})

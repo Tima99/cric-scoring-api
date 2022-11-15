@@ -1,6 +1,5 @@
 import { User } from "../models"
-import { ErrorHandler } from "../utils"
-import { SaveJwt } from "../services"
+import { ErrorHandler, SaveJwt } from "../utils"
 
 export async function verifyOtp(req, res){
     try {

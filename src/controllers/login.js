@@ -1,6 +1,6 @@
 import { User } from "../models"
-import { ErrorHandler } from "../utils"
-import { SaveJwt, sendEmail, validate } from "../services"
+import { ErrorHandler, SaveJwt } from "../utils"
+import { sendEmail, validate } from "../services"
 
 export async function login(req, res){
     try {
@@ -26,6 +26,7 @@ export async function login(req, res){
             // if not verified send verify otp
             const OTP = await userDoc.generateOtp()
             await sendEmail({to: email, OTP, subject: "Verified your email"})
+            await userDoc.save()
         }
 
         res.send(userDoc)
