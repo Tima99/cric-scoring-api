@@ -28,7 +28,8 @@ const playerSchema = new Schema({
             }
         }
     },
-    teams: { type: Array },
+    teams: { type: Array }, // contains ObjectId of team
+    teamsCreator: {type: Array}, // this contain team's ObjectId only which player is not added but create team
     awards: { type: Object }
 }, { timestamps: true })
 

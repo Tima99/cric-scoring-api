@@ -7,4 +7,10 @@ export { userAuthentic } from "./authentication/userAuthentic"
 export { logout } from "./authentication/logout"
 export { resendOtp } from "./authentication/resendOtp"
 
-export { createPlayer } from "./Players/createPlayer"
+export { createPlayer } from "./players/createPlayer"
+
+export { createTeam } from "./teams/createTeam"
+export { addPlayer } from "./teams/addPlayer"
+export { myTeams } from "./teams/myTeams"
+export { removePlayer } from "./teams/removePlayer"
+export { leftTeam } from "./teams/leftTeam"
