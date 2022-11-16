@@ -15,5 +15,12 @@ export const validate = {
 
     email : email => {
         return Validator.isEmail(email)
+    },
+
+    name : name => {
+        return Validator.isLength(name || '', {
+            min: 3, 
+            max: 15
+        })
     }
 }
