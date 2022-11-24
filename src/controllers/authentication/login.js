@@ -19,17 +19,22 @@ export async function login(req, res){
         const isPasswordMatch = await userDoc.comparePassword(password)
         if(!isPasswordMatch) throw new ErrorHandler({message: "Password wrong.", code: 422})
 
-        if( userDoc.isVerified() ) 
+        if( userDoc.isVerified() ) {
             // if user verified than save jwt
             await SaveJwt({email}, res)
+            let user = userDoc.toObject()
+            delete user.otp
+            delete user.password
+            res.send(user)
+        }
         else{
             // if not verified send verify otp
             const OTP = await userDoc.generateOtp()
             await sendEmail({to: email, OTP, subject: "Verified your email"})
             await userDoc.save()
+            res.send("Verify your email")
         }
 
-        res.send(userDoc)
     } catch (error) {
         console.log(error);
 

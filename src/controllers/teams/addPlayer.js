@@ -16,7 +16,7 @@ export async function addPlayer(req, res){
         if(isAdded > -1) throw new ErrorHandler({message: "Player already added.", code: 500})
 
         // add player else
-        const player = {_id : playerId, role}
+        const player = {_id : playerId, role, name : addingPlayer.name}
 
         if( !mongoose.isValidObjectId(teamId) ) throw new ErrorHandler({message: "Wrong Team Id.", code: 500})
 

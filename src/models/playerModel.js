@@ -5,6 +5,9 @@ const { Schema } = mongoose
 const playerSchema = new Schema({
     email: { type: String, require: true, unique: true },
     name: { type: String, require: true },
+    location: {type : String},
+    role: {type : String},
+    gender: {type : String},
     verified: { type: Boolean },
     stats: {
         type: {

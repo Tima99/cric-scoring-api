@@ -4,7 +4,11 @@ import { ErrorHandler } from "../../utils"
 
 export async function createPlayer(req, res){
     try {
-        const {email, name} = req.body
+        let email = req.email
+        // if player is not a user 
+        // if another player wants to create player (when add player to team)
+        email = req.body.email || email
+        const {name, location, role, gender} = req.body
 
         // validation
         if(! validate.email(email)) throw new ErrorHandler({message: "Email not correct", code: 422})
@@ -12,7 +16,7 @@ export async function createPlayer(req, res){
 
         // player already exists
         const playerExists = await Player.findOne({email})
-        if( playerExists ) return res.status(200).send({message: "player already exists", ...playerExists.toObject() })
+        if( playerExists ) return res.status(403).send("player already exists")
         
         // if player email exists in users collection and otp Verified
         // than player is verified
@@ -20,7 +24,7 @@ export async function createPlayer(req, res){
         const isPlayerVerified = user && user.isVerified() ? true : false
 
         // create player
-        const newPlayerDoc = await Player({email, name, verified: isPlayerVerified})
+        const newPlayerDoc = await Player({email, name: name.trim().toLowerCase(), verified: isPlayerVerified, location, role, gender})
         await newPlayerDoc.save()
 
         res.send(newPlayerDoc)

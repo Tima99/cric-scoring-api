@@ -5,7 +5,7 @@ import { sendEmail, validate } from "../../services"
 export async function register(req, res){
     try {
         const {email, password, ["confirm-password"]:confirmPassword } = req.body
-        /// console.log(email, password, confirmPassword);
+        // /console.log(email, password, confirmPassword);
 
         // Validation 
         // email
@@ -20,7 +20,7 @@ export async function register(req, res){
         if(password !== confirmPassword) throw new ErrorHandler({message: "Password not match.", code: 422})
 
         // is already exists
-        if(await User.findOne({email})) throw new ErrorHandler({message: "User already exists. Login now.", code: 200})
+        if(await User.findOne({email})) throw new ErrorHandler({message: "User already exists. Login now.", code: 403})
 
         // Create Document
         const userDoc =  await User({email})

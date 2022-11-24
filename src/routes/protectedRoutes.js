@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { updatePassword, userAuthentic, logout, createTeam, addPlayer, myTeams, removePlayer, leftTeam } from "../controllers";
+import { updatePassword, userAuthentic, logout, createTeam, addPlayer, myTeams, removePlayer, leftTeam, createPlayer } from "../controllers";
 
 const route = Router()
 
 // Post Protected Routes
 route.post('/update/password', updatePassword)
+
+route.post('/createPlayer', createPlayer)
 
 route.post('/createTeam', createTeam)
 route.post('/addPlayer', addPlayer)

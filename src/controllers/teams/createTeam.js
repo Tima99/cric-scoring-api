@@ -4,13 +4,16 @@ export async function createTeam(req, res) {
     try {
         const { name, location, logo, admin, role } = req.body
         const creator = req.email
-        console.log(admin);
+        const user_player = admin && await Player.findOne({email : creator});
+
+        if(admin && !user_player) res.status(401).send("Player Not Found!")
 
         // if admin true
         // than team creator wants to add as player in that team
         let player = {
             _id: creator,
             role,
+            name: user_player.name
         }
         if (!admin) player = null
 
@@ -19,6 +22,8 @@ export async function createTeam(req, res) {
             location,
             creator,
             admin: admin ? creator : null,
+            captain: admin ? creator : null,
+            captainName: user_player && user_player.name,
             players : player ? [player] : []
         })
 

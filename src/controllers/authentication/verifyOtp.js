@@ -20,7 +20,10 @@ export async function verifyOtp(req, res){
         const payload = {email}
         await SaveJwt(payload, res)
         
-        res.send(userDoc)
+        const user = userDoc.toObject()
+        delete user.otp
+        delete user.password
+        res.send(user)
 
     } catch (error) {
         console.log(error)

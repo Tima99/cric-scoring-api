@@ -14,3 +14,6 @@ export { addPlayer } from "./teams/addPlayer"
 export { myTeams } from "./teams/myTeams"
 export { removePlayer } from "./teams/removePlayer"
 export { leftTeam } from "./teams/leftTeam"
+export { getTeam } from "./teams/getTeam"
+
+export { search } from "./search"
