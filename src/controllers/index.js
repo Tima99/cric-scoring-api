@@ -8,3 +8,4 @@ export { logout } from "./authentication/logout"
 export { resendOtp } from "./authentication/resendOtp"
 
 export { createPlayer } from "./Players/createPlayer"
+export { playerAuthentic } from "./Players/playerAuthentic"
