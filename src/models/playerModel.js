@@ -11,23 +11,24 @@ const playerSchema = new Schema({
     verified: { type: Boolean },
     stats: {
         type: {
-            matches: { type: String , default: 0},
+            matches: { type: Number , default: 0},
             batting: {
-                innings: { type: String },
-                runs: { type: String },
-                lbRuns: { type: String },
-                sixes: { type: String },
-                fours: { type: String },
-                balls: { total: String, dots: String }
+                innings: { type: Number },
+                runs: { type: Number },
+                sixes: { type: Number },
+                fours: { type: Number },
+                notOut: { type: Number },
+                balls: { total: Number, dots: Number },
+                highest: {score: {type: Number, default: 0}, isNotOut: Boolean}
             },
             bowling: {
-                innings: { type: String },
-                wickets: { type: String },
-                runs: { type: String },
-                sixes: { type: String },
-                fours: { type: String },
-                overs: { type: String },
-                balls: { total: String, dots: String }
+                innings: { type: Number },
+                wickets: { type: Number },
+                runs: { type: Number },
+                sixes: { type: Number },
+                fours: { type: Number },
+                overs: { type: Number },
+                balls: { total: Number, dots: Number }
             }
         }
     },

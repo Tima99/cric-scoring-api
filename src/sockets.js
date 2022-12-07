@@ -511,6 +511,16 @@ export function socketConnect({ matchId }) {
             }
         })
 
+        // socket.on("win", async() => {
+        //     try {
+        //         const matchDoc = await Match.findById({_id: mongoose.Types.ObjectId(socket.id)})
+
+        //         const result = await TeamWin(matchDoc)
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // })
+
     });
 }
 

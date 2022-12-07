@@ -12,6 +12,7 @@ const matchSchema = new Schema(
         ballType: { type: String },
 		winTeam: {type: String, default: null},
 		scoringBy: String,
+		updatePlayers: {type: Boolean, default: false},
         teamA: {
             _id: String,
             name: String,
