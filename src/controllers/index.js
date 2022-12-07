@@ -17,3 +17,7 @@ export { leftTeam } from "./teams/leftTeam"
 export { getTeam } from "./teams/getTeam"
 
 export { search } from "./search"
+
+export {createMatch} from "./matches/createMatch"
+export {getMatch} from "./matches/getMatch"
+export {myMatches} from "./matches/myMatches"

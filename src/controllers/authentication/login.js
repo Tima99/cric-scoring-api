@@ -5,7 +5,7 @@ import { sendEmail, validate } from "../../services"
 export async function login(req, res){
     try {
         const {email, password} = req.body
-
+        // console.log(email, password);
         // validate
         const validEmail = validate.email(email)
         if(!validEmail) throw new ErrorHandler({message: "Email not correct.", code: 422}) 
