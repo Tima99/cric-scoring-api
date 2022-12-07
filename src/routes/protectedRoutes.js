@@ -12,6 +12,7 @@ import {
     createMatch,
     myMatches,
     getMatch,
+    playerAuthentic
 } from "../controllers";
 import { socketConnect } from "../middlewares";
 
@@ -31,8 +32,9 @@ route.post("/leftTeam", leftTeam);
 route.post("/createMatch", createMatch);
 
 // Get Protected Routes
-route.get("/auth", userAuthentic);
-route.get("/logout", logout);
+route.get('/auth', userAuthentic)
+route.get('/authPlayer', playerAuthentic)
+route.get('/logout', logout)
 
 route.get("/myTeams", myTeams);
 

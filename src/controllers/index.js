@@ -8,7 +8,7 @@ export { logout } from "./authentication/logout"
 export { resendOtp } from "./authentication/resendOtp"
 
 export { createPlayer } from "./players/createPlayer"
-
+export { playerAuthentic } from "./players/playerAuthentic"
 export { createTeam } from "./teams/createTeam"
 export { addPlayer } from "./teams/addPlayer"
 export { myTeams } from "./teams/myTeams"
