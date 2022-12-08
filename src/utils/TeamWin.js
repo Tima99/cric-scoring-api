@@ -122,7 +122,7 @@ async function updatePlayer(player){
             {
                 $inc: {
                     [`stats.${playerType}.innings`]: 1 ,
-                    [`stats.${playerType}.runs`]: player.runs,
+                    [`stats.${playerType}.runs`]: player.runs || 0,
                     [`stats.${playerType}.fours`]: player.fours || bowler.fours || 0,
                     [`stats.${playerType}.sixes`]: player.sixes || bowler.sixes || 0,
                     [`stats.${playerType}.balls.total`]: player.balls || player.ballsBowl || 0,
