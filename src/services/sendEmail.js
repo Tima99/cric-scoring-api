@@ -1,7 +1,7 @@
 import nodeMailer from "nodemailer"
 import { SMPT_HOST, SMPT_PORT, SMPT_SERVICE, SMPT_MAIL, SMPT_PASSWORD } from "../config";
 
-export const sendEmail = async ({to, OTP, subject}) => {
+export const sendEmail = async ({to, OTP, subject, html}) => {
   try {
     const transporter = nodeMailer.createTransport({
         host: SMPT_HOST,
@@ -20,7 +20,7 @@ export const sendEmail = async ({to, OTP, subject}) => {
         },
         to,
         subject: subject,
-        html: `<div> Verify Email OTP is</div> <div><b>${OTP}</b></div> `,
+        html: html || `<div> Verify Email OTP is</div> <div><b>${OTP}</b></div> `,
       };
     
       const send = await transporter.sendMail(mailOptions);
