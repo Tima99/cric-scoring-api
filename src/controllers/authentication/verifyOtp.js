@@ -11,14 +11,20 @@ export async function verifyOtp(req, res){
 
         // if(userDoc.otp.includes("Verified")) throw new ErrorHandler({message: "Email already verified!", code: 200})
 
-        const isVerify = await userDoc.verifyOtp(otp)
+        const isVerify = await userDoc.verifyOtp(otp, forResetPwd)
+
         if( !isVerify ) throw new ErrorHandler({message: "Wrong Otp.", code: 422}) 
 
-        await userDoc.save()
 
-        if(forResetPwd)
+        if(forResetPwd){
+            userDoc.isResetVerify = true
+            await userDoc.save()
             return res.send("Verified")
+        }
 
+
+        await userDoc.save()
+        
         // after register and verify otp save jwt
         const payload = {email}
         await SaveJwt(payload, res)

@@ -7,7 +7,8 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     email : {type: String, required: true, unique: true},
     password: {type: String},
-    otp: {type: String}
+    otp: {type: String},
+    isResetVerify: {type: Boolean, default: false}
 }, {timestamps : true})
 
 userSchema.methods.generateOtp = function(){
@@ -15,9 +16,9 @@ userSchema.methods.generateOtp = function(){
     this.otp = OTP
     return OTP
 }
-userSchema.methods.verifyOtp = function(userOtp){
+userSchema.methods.verifyOtp = function(userOtp, forResetPwd){
     const verify = this.otp === userOtp
-    if(verify) this.otp = "Verified"
+    if(verify && !forResetPwd) this.otp = "Verified"
     return verify
 }
 userSchema.methods.isVerified = function(){

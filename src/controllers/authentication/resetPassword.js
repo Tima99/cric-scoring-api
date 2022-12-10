@@ -13,8 +13,12 @@ export async function resetPassword(req, res){
 
         if(!userDoc) return res.status(401).send(`User have not account with email ${email}.`)
 
+        if( !userDoc.isResetVerify ) return res.status(401).send("First verify your email.")
+        
         await userDoc.hashPassword(newPassword)
-
+        // make false so user have to again verify for reset password
+        userDoc.isResetVerify = false
+        
         await userDoc.save()
 
         res.send("Reset Password Sucess!")
