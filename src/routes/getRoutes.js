@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getMatch, getTeam, resendOtp, search, resendOtp, resetPasswordEmailVerify } from "../controllers";
+import { getMatch, getTeam, resendOtp, search, resetPasswordEmailVerify } from "../controllers";
 
 const route = Router()
 
