@@ -5,7 +5,7 @@ const route = Router()
 
 
 route.get('/', (req, res) => res.send("Server Started 😍😍"))
-route.get('/resend/otp/:email', resendOtp)
+route.get('/resend/otp/:email/:forResetPwd', resendOtp)
 route.get('/search', search)
 route.get('/getTeam/:id', getTeam)
 route.get('/getMatch/:matchId', getMatch)

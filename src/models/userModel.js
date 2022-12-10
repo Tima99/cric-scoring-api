@@ -8,6 +8,7 @@ const userSchema = new Schema({
     email : {type: String, required: true, unique: true},
     password: {type: String},
     otp: {type: String},
+    resetOtp: {type: String},
     isResetVerify: {type: Boolean, default: false}
 }, {timestamps : true})
 
@@ -16,9 +17,19 @@ userSchema.methods.generateOtp = function(){
     this.otp = OTP
     return OTP
 }
-userSchema.methods.verifyOtp = function(userOtp, forResetPwd){
+userSchema.methods.generateResetOtp = function(){
+    const OTP = generateOtp()
+    this.resetOtp = OTP
+    return OTP
+}
+userSchema.methods.verifyOtp = function(userOtp){
     const verify = this.otp === userOtp
-    if(verify && !forResetPwd) this.otp = "Verified"
+    if(verify) this.otp = "Verified"
+    return verify
+}
+userSchema.methods.verifyResetOtp = function(userOtp){
+    const verify = this.resetOtp === userOtp
+    if(verify) this.isResetVerify = true
     return verify
 }
 userSchema.methods.isVerified = function(){

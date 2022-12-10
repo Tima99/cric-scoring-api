@@ -9,19 +9,22 @@ export async function verifyOtp(req, res){
 
         if(!userDoc) throw new ErrorHandler({message: "User not found", code: 401})        
 
-        // if(userDoc.otp.includes("Verified")) throw new ErrorHandler({message: "Email already verified!", code: 200})
+        if(!forResetPwd && userDoc.otp.includes("Verified")) throw new ErrorHandler({message: "Email already verified!", code: 200})
 
-        const isVerify = await userDoc.verifyOtp(otp, forResetPwd)
+        let isVerify = null
+        if(!forResetPwd){
+            isVerify = userDoc.verifyOtp(otp)
+        }else{
+            isVerify = userDoc.verifyResetOtp(otp)
+        }
 
         if( !isVerify ) throw new ErrorHandler({message: "Wrong Otp.", code: 422}) 
-
 
         if(forResetPwd){
             userDoc.isResetVerify = true
             await userDoc.save()
             return res.send("Verified")
         }
-
 
         await userDoc.save()
         

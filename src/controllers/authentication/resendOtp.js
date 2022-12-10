@@ -4,16 +4,20 @@ import { ErrorHandler } from "../../utils";
 
 export async function resendOtp(req, res){
     try {
-        const {email} = req.params
+        const {email, forResetPwd} = req.params
 
         const user = await User.findOne({email})
 
         if(!user) throw new ErrorHandler({message: "User not exists. Create Account.", code: 401})
 
         // check email verified
-        if( user.isVerified() ) throw new ErrorHandler({message: "Email already verified.", code: 422})
+        if( !forResetPwd && user.isVerified() ) throw new ErrorHandler({message: "Email already verified.", code: 422})
         
-        const OTP = user.generateOtp()
+        let OTP = null
+        if(forResetPwd === "false")
+            OTP = user.generateOtp()
+        else
+            OTP = user.generateResetOtp()
 
         // send email
         await sendEmail({to: email, OTP, subject: "Verify Email with OTP"})
