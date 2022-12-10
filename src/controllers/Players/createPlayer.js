@@ -24,7 +24,7 @@ export async function createPlayer(req, res){
         const isPlayerVerified = user && user.isVerified() ? true : false
 
         // create player
-        const newPlayerDoc = await Player({email, name: name.trim().toLowerCase(), verified: isPlayerVerified, location, role, gender})
+        const newPlayerDoc = await Player({email, name: name.trim(), verified: isPlayerVerified, location, role, gender})
         await newPlayerDoc.save()
 
         res.send(newPlayerDoc)

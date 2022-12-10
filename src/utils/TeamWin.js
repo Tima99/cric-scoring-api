@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Match, Player } from "../models";
+import { Match, Player, Team } from "../models";
 
 export async function TeamWin(matchDoc) {
     try {
@@ -51,15 +51,33 @@ export async function TeamWin(matchDoc) {
                 { winTeam: winTeam, updatePlayers: true },
                 { returnDocument: "after" }
             );
-
             // if match ended than perform
-            // players stats updates
-            if( !matchDoc.updatePlayers )
+            // players stats updates and TeamStatsUpdate
+            if( !matchDoc.updatePlayers ){
+                await UpdateTeamStats(matchWin)
                 await UpdatePlayerStats(matchDoc);
+            }
 
             return matchWin;
         }
         return null;
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+async function UpdateTeamStats(matchDoc){
+    try {
+        if(matchDoc.winTeam === 'false'){
+            await Team.updateMany({_id: {$in : [mongoose.Types.ObjectId(matchDoc.teamA._id), mongoose.Types.ObjectId(matchDoc.teamB._id)]}}, {
+                $inc:{ "stats.tie" : 1}    
+            })
+        }
+        else{
+            const r = await Team.updateOne({_id: mongoose.Types.ObjectId(matchDoc.winTeam)}, {
+                $inc:{ "stats.won" : 1}
+            })
+        }
     } catch (error) {
         return Promise.reject(error)
     }

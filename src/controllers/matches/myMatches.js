@@ -1,10 +1,10 @@
 import {Match} from "../../models"
 import { ErrorHandler } from "../../utils";
 
-export async function myMatches(req, res){
+export async function getMyMatches(req, res, next, ){
     try {
         const email = req.email
-        console.log(email);
+        // console.log(email);
 
         const matches = await Match.find()
         // console.log(matches);
@@ -15,8 +15,8 @@ export async function myMatches(req, res){
         })
 
         // console.log(myMatches);
-
-        res.send(myMatches)
+        req.myMatches = myMatches
+        next()
 
     } catch (error) {
         console.log(error);
@@ -25,4 +25,9 @@ export async function myMatches(req, res){
 
         res.status(500).send("Try After Sometime");
     }
+}
+
+export function sendMyMatches(req, res){
+    const myMatches = req.myMatches
+    res.send(myMatches)
 }

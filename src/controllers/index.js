@@ -9,15 +9,20 @@ export { resendOtp } from "./authentication/resendOtp"
 
 export { createPlayer } from "./players/createPlayer"
 export { playerAuthentic } from "./players/playerAuthentic"
+export { editPlayer } from "./players/editPlayer"
+
 export { createTeam } from "./teams/createTeam"
 export { addPlayer } from "./teams/addPlayer"
 export { myTeams } from "./teams/myTeams"
+export { opponentsTeam } from "./teams/opponentsTeam"
 export { removePlayer } from "./teams/removePlayer"
 export { leftTeam } from "./teams/leftTeam"
 export { getTeam } from "./teams/getTeam"
+export { deleteTeam } from "./teams/deleteTeam"
 
 export { search } from "./search"
 
 export {createMatch} from "./matches/createMatch"
 export {getMatch} from "./matches/getMatch"
-export {myMatches} from "./matches/myMatches"
+export {getMatches} from "./matches/getMatches"
+export {getMyMatches, sendMyMatches} from "./matches/myMatches"

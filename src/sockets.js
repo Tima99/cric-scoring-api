@@ -48,7 +48,7 @@ export function socketConnect({ matchId }) {
                     {
                         $push: {
                             "stats.0.bat.batters.$[o].runSpell": runs,
-                            "stats.0.bowl.bowlers.$[b].spell": runs,
+                            "stats.0.bowl.bowlers.$[b].spell": runs.toString(),
                         },
                         $inc: {
                             "stats.0.bat.batters.$[o].balls": 1,
@@ -97,7 +97,7 @@ export function socketConnect({ matchId }) {
                 const pushThings = {
                     $push: {
                         "stats.0.bat.batters.$[o].runSpell": runs,
-                        "stats.0.bowl.bowlers.$[b].spell": runs,
+                        "stats.0.bowl.bowlers.$[b].spell": runs.toString(),
                     },
                 };
                 let updatedMatchDoc = null;
@@ -196,7 +196,7 @@ export function socketConnect({ matchId }) {
                 const prefix = {
                     bowled: "b",
                     "caught behind": "wk",
-                    stump: "stump",
+                    stump: "st",
                     "run out": "run out",
                     lbw: "lbw",
                     "caught out": "c",
@@ -340,7 +340,8 @@ export function socketConnect({ matchId }) {
                         $inc:{
                             "stats.0.bat.wide": 1,
                             "stats.0.bat.score": 1,
-                            "stats.0.bowl.bowlers.$[sb].runs": 1
+                            "stats.0.bowl.bowlers.$[sb].runs": 1,
+                            "stats.0.bowl.bowlers.$[sb].wide": 1
                         },
                         $push: {
                             "stats.0.bowl.bowlers.$[sb].spell": 'wd'
@@ -377,6 +378,7 @@ export function socketConnect({ matchId }) {
                             "stats.0.bat.noBall": 1,
                             "stats.0.bat.score" : runsWithNoball,
                             "stats.0.bowl.bowlers.$[sb].runs": runsWithNoball,
+                            "stats.0.bowl.bowlers.$[sb].noBall": 1,
                             "stats.0.bat.batters.$[sbat].runs": runs,
                             "stats.0.bat.batters.$[sbat].balls": 1,
                             

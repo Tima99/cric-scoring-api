@@ -13,7 +13,7 @@ export async function authenticate(req, res, next) {
         next()
     } catch (error) {
         res.clearCookie('jwt')
-        console.log(error.message);
+        // console.log(error.message);
         if (error instanceof Error)
             return res.status(500).send(error)
         if (error instanceof ErrorHandler)

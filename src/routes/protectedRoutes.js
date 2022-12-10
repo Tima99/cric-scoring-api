@@ -10,9 +10,13 @@ import {
     leftTeam,
     createPlayer,
     createMatch,
-    myMatches,
     getMatch,
-    playerAuthentic
+    playerAuthentic,
+    editPlayer,
+    opponentsTeam,
+    getMyMatches,
+    sendMyMatches,
+    deleteTeam
 } from "../controllers";
 import { socketConnect } from "../middlewares";
 
@@ -22,6 +26,7 @@ const route = Router();
 route.post("/update/password", updatePassword);
 
 route.post("/createPlayer", createPlayer);
+route.post("/editPlayer", editPlayer);
 
 route.post("/createTeam", createTeam);
 route.post("/addPlayer", addPlayer);
@@ -36,9 +41,11 @@ route.get('/auth', userAuthentic)
 route.get('/authPlayer', playerAuthentic)
 route.get('/logout', logout)
 
+route.get("/deleteTeam/:teamId", deleteTeam)
 route.get("/myTeams", myTeams);
+route.get("/myOpponentsTeam", getMyMatches, opponentsTeam);
 
-route.get("/myMatches", myMatches);
+route.get("/myMatches", getMyMatches, sendMyMatches);
 
 route.get('/scoring/getMatch/:matchId', socketConnect, getMatch)
 

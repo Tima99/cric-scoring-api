@@ -1,4 +1,5 @@
-import { Match } from "../../models";
+import mongoose from "mongoose";
+import { Match, Team } from "../../models";
 import { ErrorHandler } from "../../utils";
 export async function createMatch(req, res) {
     try {
@@ -15,8 +16,6 @@ export async function createMatch(req, res) {
             bowler,
             scoringBy
         } = req.body;
-
-
 
         if (teamA._id === teamB._id)
             throw new ErrorHandler({
@@ -57,19 +56,22 @@ export async function createMatch(req, res) {
                         strike: false,
                         isSelected: undefined,
                     });
-            ply =
-                ply ||
+            return ply;
+        };
+
+        const cbBowl = (player) => {
+            let ply =
                 (player.isSelected &&
                     player._id === bowler && {
                         ...player,
                         strike: true,
                         isSelected: undefined,
                     });
-            return ply;
-        };
+            return ply
+        }
 
         const strikerTeamA = batFirstTeam.players.map(cb).filter((v) => v);
-        const strikerTeamB = bowlFirstTeam.players.map(cb).filter((v) => v);
+        const strikerTeamB = bowlFirstTeam.players.map(cbBowl).filter((v) => v);
         
         const matchDoc = await Match({
             toss,
@@ -101,6 +103,16 @@ export async function createMatch(req, res) {
         });
 
         const matchCreated = await matchDoc.save();
+
+        const ids = [ mongoose.Types.ObjectId(teamA._id), mongoose.Types.ObjectId(teamB._id) ]
+
+        await Team.updateMany({_id: {$in : ids}},
+            {$push: {matches : matchCreated._id }}
+        ) 
+
+        await Team.updateOne({_id : mongoose.Types.ObjectId(toss.won)}, {
+            $inc: { "stats.tossWon" : 1, "stats.batFirst": toss.select === "bat" ? 1 : 0}
+        })
 
         if(req.email === scoringBy || !scoringBy)
             res.send(matchCreated);
