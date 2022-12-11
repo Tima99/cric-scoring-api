@@ -1,3 +1,4 @@
+import { User } from "../models";
 import { ErrorHandler, VerifyJwt } from "../utils";
 
 export async function authenticate(req, res, next) {
@@ -8,6 +9,10 @@ export async function authenticate(req, res, next) {
         const { email } = await VerifyJwt(jwt)
         // console.log(verify)
 
+        const isUserExist = await User.exists({email})
+
+        if( !isUserExist ) throw new ErrorHandler({message: "email not exists.", code: 401})
+        
         req.email = email
 
         next()
