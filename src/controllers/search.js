@@ -16,6 +16,10 @@ export async function search(req, res) {
             search = await Player.find({ name: { $regex: '^' + query, $options: 'i' } })
         else if (searchFor === "teams")
             search = await Team.find({ name: { $regex: '^' + query, $options: 'i' } })
+        else{
+            search = await Team.find({ name: { $regex: '^' + query, $options: 'i' } })
+            search = { "teams" : search, "players" : await Player.find({ name: { $regex: '^' + query, $options: 'i' } }) }
+        }
             
         res.send(search)
     } catch (error) {

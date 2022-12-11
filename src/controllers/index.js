@@ -12,6 +12,7 @@ export { resetPassword } from "./authentication/resetPassword"
 export { createPlayer } from "./players/createPlayer"
 export { playerAuthentic } from "./players/playerAuthentic"
 export { editPlayer } from "./players/editPlayer"
+export { getPlayer } from "./Players/getPlayer"
 
 export { createTeam } from "./teams/createTeam"
 export { addPlayer } from "./teams/addPlayer"
