@@ -9,7 +9,7 @@ import http from "http"
 import socket from "./sockets"
 
 const app = express()
-const server = http.createServer(app)
+// const server = http.createServer(app)
 
 const corsOptions = {
     origin : "http://localhost:3000",
@@ -23,7 +23,7 @@ app.use('/api', getRoutes)
 app.use('/api', postRoutes)
 app.use('/api', authenticate, protectedRoutes)
 
-server.listen(PORT, () => console.log(`🌍 Server listening on http://localhost:${PORT}/api/`) )
+app.listen(PORT, () => console.log(`🌍 Server listening on http://localhost:${PORT}/api/`) )
 // socket.listen(server, () => console.log(`🔌 Socket Connected!`))
 
 mongoose.connect(DB_URL)
