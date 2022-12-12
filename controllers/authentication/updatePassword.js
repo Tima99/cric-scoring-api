@@ -1,6 +1,6 @@
-import {User} from "../../models"
-import { validate } from "../../services"
-import { ErrorHandler } from "../../utils"
+import {User} from "../../models/index.js"
+import { validate } from "../../services/index.js"
+import { ErrorHandler } from "../../utils/index.js"
 
 export async function updatePassword(req, res){
     try {

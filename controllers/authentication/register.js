@@ -1,6 +1,6 @@
-import { User } from "../../models"
-import { ErrorHandler } from "../../utils"
-import { sendEmail, validate } from "../../services"
+import { User } from "../../models/index.js"
+import { ErrorHandler } from "../../utils/index.js"
+import { sendEmail, validate } from "../../services/index.js"
 
 export async function register(req, res){
     try {

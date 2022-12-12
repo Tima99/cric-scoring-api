@@ -1,6 +1,6 @@
-import { User } from "../../models";
-import { sendEmail } from "../../services";
-import { ErrorHandler } from "../../utils";
+import { User } from "../../models/index.js";
+import { sendEmail } from "../../services/index.js";
+import { ErrorHandler } from "../../utils/index.js";
 
 export async function resendOtp(req, res){
     try {

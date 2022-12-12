@@ -1,5 +1,5 @@
-import { ErrorHandler } from "../../utils"
-import {Player} from "../../models"
+import { ErrorHandler } from "../../utils/index.js"
+import {Player} from "../../models/index.js"
 
 export async function playerAuthentic(req, res){
     try {

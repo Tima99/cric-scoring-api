@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Match } from "../../models"
+import { Match } from "../../models/index.js"
 
 export async function getMatches(req, res){
     try {

@@ -1,5 +1,5 @@
-import { Player, Team, User } from "../models"
-import { ErrorHandler } from "../utils"
+import { Player, Team, User } from "../models/index.js"
+import { ErrorHandler } from "../utils/index.js"
 
 export async function search(req, res) {
     try {

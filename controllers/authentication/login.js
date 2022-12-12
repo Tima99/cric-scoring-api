@@ -1,6 +1,6 @@
-import { User } from "../../models"
-import { ErrorHandler, SaveJwt } from "../../utils"
-import { sendEmail, validate } from "../../services"
+import { User } from "../../models/index.js"
+import { ErrorHandler, SaveJwt } from "../../utils/index.js"
+import { sendEmail, validate } from "../../services/index.js"
 
 export async function login(req, res){
     try {

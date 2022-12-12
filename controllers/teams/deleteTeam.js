@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Player, Team } from "../../models";
+import { Player, Team } from "../../models/index.js";
 
 export async function deleteTeam(req, res) {
     try {

@@ -1,5 +1,5 @@
-import { Player, Team } from "../../models"
-import { findAllById } from "../../utils"
+import { Player, Team } from "../../models/index.js"
+import { findAllById } from "../../utils/index.js"
 
 export async function myTeams(req, res){
     try {

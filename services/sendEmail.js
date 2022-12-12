@@ -1,5 +1,5 @@
 import nodeMailer from "nodemailer"
-import { SMPT_HOST, SMPT_PORT, SMPT_SERVICE, SMPT_MAIL, SMPT_PASSWORD } from "../config";
+import { SMPT_HOST, SMPT_PORT, SMPT_SERVICE, SMPT_MAIL, SMPT_PASSWORD } from "../config/index.js";
 
 export const sendEmail = async ({to, OTP, subject, html}) => {
   try {

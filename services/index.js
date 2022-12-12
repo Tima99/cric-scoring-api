@@ -1,2 +1,2 @@
-export { sendEmail } from "./sendEmail"
-export {validate} from "./validate"
+export { sendEmail } from "./sendEmail.js"
+export {validate} from "./validate.js"

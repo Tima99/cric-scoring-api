@@ -1,4 +1,4 @@
-export {default as User} from "./userModel"
-export {default as Player} from "./playerModel"
-export {default as Team} from "./teamModel"
-export {default as Match} from "./matchModel"
+export {default as User} from "./userModel.js"
+export {default as Player} from "./playerModel.js"
+export {default as Team} from "./teamModel.js"
+export {default as Match} from "./matchModel.js"

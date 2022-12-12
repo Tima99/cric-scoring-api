@@ -1,3 +1,3 @@
-export { default as getRoutes } from "./getRoutes"
-export { default as postRoutes } from "./postRoutes"
-export { default as protectedRoutes } from "./protectedRoutes"
+export { default as getRoutes } from "./getRoutes.js"
+export { default as postRoutes } from "./postRoutes.js"
+export { default as protectedRoutes } from "./protectedRoutes.js"

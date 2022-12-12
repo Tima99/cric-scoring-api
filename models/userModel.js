@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt"
-import { generateOtp } from "../utils";
+import { generateOtp } from "../utils/index.js";
 
 const Schema = mongoose.Schema
 

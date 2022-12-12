@@ -1,2 +1,2 @@
-export { authenticate } from "./authenticate"
-export { socketConnect } from "./socketConnect"
+export { authenticate } from "./authenticate.js"
+export { socketConnect } from "./socketConnect.js"

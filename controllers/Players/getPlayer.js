@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { Player } from "../../models";
-import {validate} from "../../services"
+import { Player } from "../../models/index.js";
+import {validate} from "../../services/index.js"
 
 export async function getPlayer(req , res){
     try {

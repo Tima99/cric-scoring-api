@@ -1,5 +1,5 @@
-import { User } from "../../models"
-import { validate } from "../../services"
+import { User } from "../../models/index.js"
+import { validate } from "../../services/index.js"
 
 export async function resetPassword(req, res){
     try {

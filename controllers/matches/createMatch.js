@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { Match, Team } from "../../models";
-import { ErrorHandler } from "../../utils";
+import { Match, Team } from "../../models/index.js";
+import { ErrorHandler } from "../../utils/index.js";
 export async function createMatch(req, res) {
     try {
         const {

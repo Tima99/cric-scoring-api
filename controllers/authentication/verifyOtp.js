@@ -1,5 +1,5 @@
-import { User } from "../../models"
-import { ErrorHandler, SaveJwt } from "../../utils"
+import { User } from "../../models/index.js"
+import { ErrorHandler, SaveJwt } from "../../utils/index.js"
 
 export async function verifyOtp(req, res){
     try {

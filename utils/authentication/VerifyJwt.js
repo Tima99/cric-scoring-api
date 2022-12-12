@@ -1,4 +1,4 @@
-import { JWT_SECRET_KEY } from "../../config"
+import { JWT_SECRET_KEY } from "../../config/index.js"
 import jwt from "jsonwebtoken"
 
 export async function VerifyJwt(token){

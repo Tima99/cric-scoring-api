@@ -1,5 +1,5 @@
-import { Team } from "../../models"
-import { ErrorHandler } from "../../utils"
+import { Team } from "../../models/index.js"
+import { ErrorHandler } from "../../utils/index.js"
 
 export async function removePlayer(req, res, next){
     try {

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { Server } from "socket.io";
-import { Match } from "./models";
+import { Match } from "./models/index.js";
 export let io = null;
-import { TeamWin } from "./utils";
+import { TeamWin } from "./utils/index.js";
 
 const socket = {
     listen: (server, cb) => {

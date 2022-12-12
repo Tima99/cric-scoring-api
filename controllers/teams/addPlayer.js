@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { Player, Team } from "../../models";
-import { ErrorHandler } from "../../utils";
+import { Player, Team } from "../../models/index.js";
+import { ErrorHandler } from "../../utils/index.js";
 
 export async function addPlayer(req, res){
     try {

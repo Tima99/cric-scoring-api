@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Match, Player, Team } from "../models";
+import { Match, Player, Team } from "../models/index.js";
 
 export async function TeamWin(matchDoc) {
     try {

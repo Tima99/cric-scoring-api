@@ -1,5 +1,5 @@
-import { User } from "../models";
-import { ErrorHandler, VerifyJwt } from "../utils";
+import { User } from "../models/index.js";
+import { ErrorHandler, VerifyJwt } from "../utils/index.js";
 
 export async function authenticate(req, res, next) {
     try {

@@ -17,8 +17,8 @@ import {
     getMyMatches,
     sendMyMatches,
     deleteTeam
-} from "../controllers";
-import { socketConnect } from "../middlewares";
+} from "../controllers/index.js";
+import { socketConnect } from "../middlewares/index.js";
 
 const route = Router();
 

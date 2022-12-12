@@ -1,6 +1,6 @@
-import { Player, User } from "../../models"
-import { validate } from "../../services"
-import { ErrorHandler } from "../../utils"
+import { Player, User } from "../../models/index.js"
+import { validate } from "../../services/index.js"
+import { ErrorHandler } from "../../utils/index.js"
 
 export async function createPlayer(req, res){
     try {

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import {Team} from "../../models"
-import { ErrorHandler } from "../../utils";
+import {Team} from "../../models/index.js"
+import { ErrorHandler } from "../../utils/index.js";
+
 export const getTeam = async (req, res) => {
     try {
         const {id} = req.params
