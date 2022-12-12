@@ -24,7 +24,7 @@ app.use('/api', postRoutes)
 app.use('/api', authenticate, protectedRoutes)
 
 server.listen(PORT, () => console.log(`🌍 Server listening on http://localhost:${PORT}/api/`) )
-socket.listen(server, () => console.log(`🔌 Socket Connected!`))
+// socket.listen(server, () => console.log(`🔌 Socket Connected!`))
 
 mongoose.connect(DB_URL)
 .then( ( ) => console.log('🌳 Database Connected!'))
