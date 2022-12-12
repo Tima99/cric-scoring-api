@@ -5,8 +5,8 @@
   "main": "./src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -r esm ./src/server.js",
-    "start": "node -r esm ./src/server.js"
+    "dev": "nodemon -r esm ./server.js",
+    "start": "node -r esm ./server.js"
   },
   "author": "amit",
   "license": "ISC",
