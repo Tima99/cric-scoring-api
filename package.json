@@ -2,11 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "sports project backend",
-  "main": "./src/server.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -r esm ./server.js",
-    "start": "node -r esm ./server.js"
+    "dev": "nodemon -r esm server.js",
+    "start": "node -r esm server.js"
   },
   "author": "amit",
   "license": "ISC",
