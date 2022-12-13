@@ -8,6 +8,7 @@ export async function SaveJwt(payload, res){
         res.cookie('jwt', token, {
             sameSite:"none",
             httpOnly: "true",
+            secure: "true"
         })
     } catch (error) {
         // console.log(error)

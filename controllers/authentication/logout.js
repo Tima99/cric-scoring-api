@@ -5,9 +5,9 @@ export async function logout(req, res){
         if(!req.email) throw new Error("Unauthorised user")
 
         res.clearCookie('jwt', {
-            domain: DOMAIN,
-            path: '/',
             sameSite:"none",
+            httpOnly: "true",
+            secure: "true"
         })
 
         res.send(`${req.email} Logout Sucess.`)
