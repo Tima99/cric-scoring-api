@@ -31,6 +31,10 @@ export function socketConnect(matchId=null) {
         //     socket.disconnect();
         // });
 
+        socket.on("change-id", (id) => {
+            socket.id = id
+        })
+
         socket.on("add-unrunning-runs", async (runs) => {
             try {
                 const labels = { 0: "dots", 4: "fours", 6: "sixes" };
