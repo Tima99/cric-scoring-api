@@ -12,7 +12,7 @@ export { resetPassword } from "./authentication/resetPassword.js"
 export { createPlayer } from "./players/createPlayer.js"
 export { playerAuthentic } from "./players/playerAuthentic.js"
 export { editPlayer } from "./players/editPlayer.js"
-export { getPlayer } from "./Players/getPlayer.js"
+export { getPlayer } from "./players/getPlayer.js"
 
 export { createTeam } from "./teams/createTeam.js"
 export { addPlayer } from "./teams/addPlayer.js"
