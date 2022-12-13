@@ -1,8 +1,12 @@
+import {DOMAIN} from "../../config"
+
 export async function logout(req, res){
     try {
         if(!req.email) throw new Error("Unauthorised user")
 
-        res.clearCookie('jwt')
+        res.clearCookie('jwt', {
+            domain: DOMAIN
+        })
 
         res.send(`${req.email} Logout Sucess.`)
     } catch (error) {
