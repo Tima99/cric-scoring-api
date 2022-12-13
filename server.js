@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import {getRoutes, postRoutes, protectedRoutes} from "./routes/index.js"
 import { authenticate } from "./middlewares/index.js"
-// import http from "http"
 import socket from "./sockets.js"
 
 const app = express()
