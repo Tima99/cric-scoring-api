@@ -1,5 +1,3 @@
-import {DOMAIN} from "../../config/index.js"
-
 export async function logout(req, res){
     try {
         if(!req.email) throw new Error("Unauthorised user")

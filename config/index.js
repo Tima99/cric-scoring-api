@@ -3,7 +3,6 @@ dotenv.config()
 
 export const {
     PORT,
-    DOMAIN,
     DB_URL,
     JWT_SECRET_KEY,
     SMPT_HOST,
