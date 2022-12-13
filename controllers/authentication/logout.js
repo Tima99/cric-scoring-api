@@ -1,4 +1,4 @@
-import {DOMAIN} from "../../config"
+import {DOMAIN} from "../../config/index.js"
 
 export async function logout(req, res){
     try {
