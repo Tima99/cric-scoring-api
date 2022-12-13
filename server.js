@@ -6,7 +6,7 @@ import cors from "cors"
 import {getRoutes, postRoutes, protectedRoutes} from "./routes/index.js"
 import { authenticate } from "./middlewares/index.js"
 import http from "http"
-import socket from "./sockets.js"
+import socket, {socketConnect} from "./sockets.js"
 
 const app = express()
 const server = http.createServer(app)
@@ -25,6 +25,7 @@ app.use('/api', authenticate, protectedRoutes)
 
 app.listen(PORT, () => console.log(`🌍 Server listening on http://localhost:${PORT}/api/`) )
 socket.listen(server, () => console.log(`🔌 Socket Connected!`))
+socketConnect()
 
 mongoose.connect(DB_URL)
 .then( ( ) => console.log('🌳 Database Connected!'))

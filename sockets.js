@@ -7,7 +7,6 @@ import { TeamWin } from "./utils/index.js";
 const socket = {
     listen: (server, cb) => {
         io = new Server(server, {
-            transports: ["websocket"],
             cors: { origin: "*" },
         });
         cb();
@@ -20,15 +19,8 @@ export function socketConnect({ matchId }) {
     console.log("user connected! Runs");
 
     io.on("connection", (socket) => {
+        if(matchId)
         socket.id = matchId;
-        // if(sockets.findIndex(item => item == socket.id) < 0)
-        //     sockets.push(socket.id);
-        // else
-        //     {
-        //         console.log("🔥: A user disconnected");
-        //         socket.disconnect();
-        //     }
-
         console.log(`⚡: ${socket.id} user just connected! ${io.engine.clientsCount}`);
         socket.on("disconnect", () => {
             socket.removeAllListeners()
