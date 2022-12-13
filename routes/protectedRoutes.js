@@ -18,7 +18,6 @@ import {
     sendMyMatches,
     deleteTeam
 } from "../controllers/index.js";
-import { socketConnect } from "../middlewares/index.js";
 
 const route = Router();
 
@@ -47,7 +46,7 @@ route.get("/myOpponentsTeam", getMyMatches, opponentsTeam);
 
 route.get("/myMatches", getMyMatches, sendMyMatches);
 
-route.get('/scoring/getMatch/:matchId', socketConnect, getMatch)
+route.get('/scoring/getMatch/:matchId', getMatch)
 
 
 export default route;
