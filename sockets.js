@@ -15,12 +15,13 @@ const socket = {
 let sockets = [];
 
 
-export function socketConnect({ matchId }) {
+export function socketConnect(matchId=null) {
     console.log("user connected! Runs");
 
     io.on("connection", (socket) => {
         if(matchId)
         socket.id = matchId;
+        
         console.log(`⚡: ${socket.id} user just connected! ${io.engine.clientsCount}`);
         socket.on("disconnect", () => {
             socket.removeAllListeners()
