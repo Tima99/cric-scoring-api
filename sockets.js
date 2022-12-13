@@ -10,6 +10,7 @@ const socket = {
             cors: { origin: "*" },
         });
         cb();
+        return io
     },
 };
 let sockets = [];

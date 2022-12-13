@@ -24,8 +24,14 @@ app.use('/api', postRoutes)
 app.use('/api', authenticate, protectedRoutes)
 
 app.listen(PORT, () => console.log(`🌍 Server listening on http://localhost:${PORT}/api/`) )
-socket.listen(server, () => console.log(`🔌 Socket Connected!`))
-socketConnect()
+const io = socket.listen(server, () => console.log(`🔌 Socket Connected!`))
+io.on("connection", (socket) => {
+    console.log(`⚡: ${socket.id} user just connected! ${io.engine.clientsCount}`);
+    socket.on("disconnect", () => {
+        socket.removeAllListeners()
+        console.log("🔥: A user disconnected "+ io.engine.clientsCount );
+    });
+})
 
 mongoose.connect(DB_URL)
 .then( ( ) => console.log('🌳 Database Connected!'))
