@@ -7,8 +7,9 @@ export async function SaveJwt(payload, res){
         const token = jwt.sign(payload, JWT_SECRET_KEY, {expiresIn})
         res.cookie('jwt', token, {
             expiresIn,
-            httpOnly: true,
-            secure: false
+            sameSite:"none",
+            httpOnly: "true",
+            secure: "true"
         })
     } catch (error) {
         // console.log(error)
