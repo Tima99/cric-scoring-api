@@ -8,8 +8,6 @@ export async function logout(req, res){
             domain: DOMAIN,
             path: '/',
             sameSite:"none",
-            httpOnly: "true",
-            secure: "true"
         })
 
         res.send(`${req.email} Logout Sucess.`)
