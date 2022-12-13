@@ -4,7 +4,7 @@ import {Player} from "../../models/index.js"
 export async function playerAuthentic(req, res){
     try {
         const playerDoc = await Player.findOne({email: req.email})
-        if( !playerDoc ) return res.status(400).send(null)
+        if( !playerDoc ) return res.status(400).send({msg: "Not Authentic"})
 
         res.send(playerDoc)
 
