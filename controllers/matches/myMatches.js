@@ -11,7 +11,7 @@ export async function getMyMatches(req, res, next, ){
         const myMatches = matches.filter( (match, i) => {
             let isMyTeam = match.teamA.players.findIndex( ply => ply._id == email)
             isMyTeam = isMyTeam < 0 && match.teamB.players.findIndex( ply => ply._id == email)
-            isMyTeam = isMyTeam < 0 && match.scoringBy == email
+            isMyTeam = isMyTeam < 0 && (match.scoringBy == email ? 1 : -1)
             return isMyTeam > -1
         })
 
