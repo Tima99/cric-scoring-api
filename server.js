@@ -21,7 +21,7 @@ app.use('/api', getRoutes)
 app.use('/api', postRoutes)
 app.use('/api', authenticate, protectedRoutes)
 
-const server = app.listen(PORT, () => console.log(`🌍 Server listening on ${DOMAIN}${PORT}`) )
+const server = app.listen(PORT, () => console.log(`🌍 Server listening on ${DOMAIN}`) )
 socket.listen(server, () => console.log(`🔌 Socket Connected!`))
 
 mongoose.connect(DB_URL)
