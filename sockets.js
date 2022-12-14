@@ -1,35 +1,33 @@
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { Match } from "./models/index.js";
-export let io = null;
 import { TeamWin } from "./utils/index.js";
+export let io = null;
 
 const socket = {
     listen: (server, cb) => {
         io = new Server(server, {
             cors: { origin: "*" },
         });
+        socketConnect()
         cb();
     },
 };
-let sockets = [];
 
+let sockets = {}
 
-export function socketConnect(matchId=null) {
-    console.log("user connected! Runs");
+export function socketConnect() {
+    io.once("connection", (socket) => {
+        // console.log(`⚡: Users : ${io.engine.clientsCount}`);
 
-    io.on("connection", (socket) => {
-        if(matchId)
-        socket.id = matchId;
+        socket.once("register", (id) => {
+            sockets[socket.id] = id;
+        })
         
-        console.log(`⚡: ${socket.id} user just connected! ${io.engine.clientsCount}`);
         socket.on("disconnect", () => {
-            socket.removeAllListeners()
-            console.log("🔥: A user disconnected "+ io.engine.clientsCount );
+            delete sockets[socket.id]
+            socket.disconnect(true)
         });
-        // socket.on("force-disconnect", () => {
-        //     socket.disconnect();
-        // });
 
         socket.on("add-unrunning-runs", async (runs) => {
             try {
@@ -37,7 +35,7 @@ export function socketConnect(matchId=null) {
                 const selectedLabel = labels[runs];
 
                 const matchDoc = await Match.findByIdAndUpdate(
-                    { _id: mongoose.Types.ObjectId(socket.id) },
+                    { _id: mongoose.Types.ObjectId(sockets[socket.id]) },
                     {
                         $push: {
                             "stats.0.bat.batters.$[o].runSpell": runs,
@@ -65,6 +63,7 @@ export function socketConnect(matchId=null) {
                 socket.emit("updated-document", matchWinResult || matchDoc);
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         });
 
@@ -97,7 +96,7 @@ export function socketConnect(matchId=null) {
 
                 if (runs % 2)
                     updatedMatchDoc = await Match.findByIdAndUpdate(
-                        { _id: mongoose.Types.ObjectId(socket.id) },
+                        { _id: mongoose.Types.ObjectId(sockets[socket.id]) },
                         {
                             ...pushThings,
                             ...increamentThings,
@@ -116,7 +115,7 @@ export function socketConnect(matchId=null) {
                 else
                     updatedMatchDoc = await Match.findByIdAndUpdate(
                         {
-                            _id: mongoose.Types.ObjectId(socket.id),
+                            _id: mongoose.Types.ObjectId(sockets[socket.id]),
                         },
                         {
                             ...pushThings,
@@ -138,6 +137,7 @@ export function socketConnect(matchId=null) {
                 socket.emit("updated-document", matchWinResult || updatedMatchDoc);
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         });
 
@@ -145,7 +145,7 @@ export function socketConnect(matchId=null) {
             try {
                 const setNextBowler = { ...nextBowler, strike: true };
                 await Match.findOneAndUpdate(
-                    { _id: mongoose.Types.ObjectId(socket.id), "stats.0.bowl.bowlers" : { $not : {$elemMatch: {_id : setNextBowler._id }} } },
+                    { _id: mongoose.Types.ObjectId(sockets[socket.id]), "stats.0.bowl.bowlers" : { $not : {$elemMatch: {_id : setNextBowler._id }} } },
                     {
                         $push: {
                             "stats.0.bowl.bowlers" : setNextBowler
@@ -163,7 +163,7 @@ export function socketConnect(matchId=null) {
                 };
                 // return console.log(setNextBowler, currentBowler)
                 const matchDoc = await Match.findOneAndUpdate(
-                    { _id: mongoose.Types.ObjectId(socket.id) },
+                    { _id: mongoose.Types.ObjectId(sockets[socket.id]) },
                     {
                         ...setThing,
                     },
@@ -180,6 +180,7 @@ export function socketConnect(matchId=null) {
                 socket.emit("updated-document", matchDoc);
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         });
 
@@ -214,7 +215,7 @@ export function socketConnect(matchId=null) {
                 if(wide) ++data.score.runs
 
                 const updatedMatchDoc = await Match.findByIdAndUpdate(
-                    { _id: mongoose.Types.ObjectId(socket.id) },
+                    { _id: mongoose.Types.ObjectId(sockets[socket.id]) },
                     {
                         $inc: {
                             "stats.0.bat.score": data.score.runs,
@@ -242,7 +243,7 @@ export function socketConnect(matchId=null) {
                 );
 
                 const addedNewBatsman = await Match.findByIdAndUpdate(
-                    {_id : mongoose.Types.ObjectId(socket.id)},
+                    {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                     {
                         $push: {
                             "stats.0.bowl.bowlers.$[strikeBowler].wicketTaken": data.outBatsman,
@@ -263,12 +264,13 @@ export function socketConnect(matchId=null) {
 
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         });
 
         socket.on("next-inning-start",({striker, nonStriker, bowler, batTeam, bowlTeam}) => {
-            const nextInningAdded = Match.findById(
-                {_id : mongoose.Types.ObjectId(socket.id)},
+            Match.findById(
+                {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                 async function (err, doc) {
                     try {
                         if(err){
@@ -295,6 +297,7 @@ export function socketConnect(matchId=null) {
                         socket.emit("updated-document", isSave)
                     } catch (error) {
                         console.log(error)
+                        socket.emit("updated_error", error.message)
                     }
                 })
         })
@@ -309,7 +312,7 @@ export function socketConnect(matchId=null) {
                 }
     
                 const changed = await Match.findByIdAndUpdate(
-                    {_id : mongoose.Types.ObjectId(socket.id)},
+                    {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                     {
                         ...changeStrike
                     },
@@ -322,13 +325,14 @@ export function socketConnect(matchId=null) {
                 socket.emit("updated-document", changed)
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         })
 
         socket.on("wide", async() => {
             try {
                 const matchDoc = await Match.findByIdAndUpdate(
-                    {_id : mongoose.Types.ObjectId(socket.id)},
+                    {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                     {
                         $inc:{
                             "stats.0.bat.wide": 1,
@@ -347,6 +351,7 @@ export function socketConnect(matchId=null) {
                 socket.emit("updated-document", matchWinResult || matchDoc)
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         })
 
@@ -365,7 +370,7 @@ export function socketConnect(matchId=null) {
                 };
 
                 let matchDoc = await Match.findByIdAndUpdate(
-                    {_id : mongoose.Types.ObjectId(socket.id)},
+                    {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                     {
                         $inc:{
                             "stats.0.bat.noBall": 1,
@@ -386,7 +391,7 @@ export function socketConnect(matchId=null) {
 
                 if(runs % 2){
                     matchDoc = await Match.findByIdAndUpdate(
-                        {_id : mongoose.Types.ObjectId(socket.id)},
+                        {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                         {
                             ...changeStrike
                         },
@@ -403,6 +408,7 @@ export function socketConnect(matchId=null) {
                 socket.emit("updated-document", matchWinResult || matchDoc)
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         })
 
@@ -418,7 +424,7 @@ export function socketConnect(matchId=null) {
                 };
 
                 let matchDoc = await Match.findByIdAndUpdate(
-                    {_id : mongoose.Types.ObjectId(socket.id)},
+                    {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                     {
                         $inc:{
                             "stats.0.bat.batters.$[sbat].lb": 1,
@@ -438,7 +444,7 @@ export function socketConnect(matchId=null) {
 
                 if(runs % 2){
                     matchDoc = await Match.findByIdAndUpdate(
-                        {_id : mongoose.Types.ObjectId(socket.id)},
+                        {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                         {
                             ...changeStrike
                         },
@@ -454,6 +460,7 @@ export function socketConnect(matchId=null) {
                 socket.emit("updated-document", matchWinResult || matchDoc)
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         })
 
@@ -468,7 +475,7 @@ export function socketConnect(matchId=null) {
                     },
                 };
                 let matchDoc = await Match.findByIdAndUpdate(
-                    {_id : mongoose.Types.ObjectId(socket.id)},
+                    {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                     {
                         $inc:{
                             "stats.0.bat.score" : runs,
@@ -486,7 +493,7 @@ export function socketConnect(matchId=null) {
 
                 if(runs % 2){
                     matchDoc = await Match.findByIdAndUpdate(
-                        {_id : mongoose.Types.ObjectId(socket.id)},
+                        {_id : mongoose.Types.ObjectId(sockets[socket.id])},
                         {
                             ...changeStrike
                         },
@@ -503,18 +510,9 @@ export function socketConnect(matchId=null) {
                 
             } catch (error) {
                 console.log(error);
+                socket.emit("updated_error", error.message)
             }
         })
-
-        // socket.on("win", async() => {
-        //     try {
-        //         const matchDoc = await Match.findById({_id: mongoose.Types.ObjectId(socket.id)})
-
-        //         const result = await TeamWin(matchDoc)
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // })
 
     });
 }
