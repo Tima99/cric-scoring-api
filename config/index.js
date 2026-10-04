@@ -6,9 +6,6 @@ export const {
     DOMAIN,
     DB_URL,
     JWT_SECRET_KEY,
-    SMPT_HOST,
-    SMPT_MAIL,
-    SMPT_PASSWORD,
-    SMPT_PORT,
-    SMPT_SERVICE
+    RESEND_API_KEY,
+    EMAIL_FROM
 } = process.env

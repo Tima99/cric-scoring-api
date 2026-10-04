@@ -1,17 +1,8 @@
 import Validator from "validator"
 
 export const validate = {
-    password : password => {
-        const match = Validator.isStrongPassword(password, {
-            minLength: 6,
-            minLowercase: 1,
-            minSymbols: 1,
-            minNumbers: 1,
-            minUppercase: 0
-        })
-
-        return match
-    },
+    // No strength rules; only require a non-empty string (bcrypt needs one)
+    password : password => typeof password === "string" && password.length > 0,
 
     email : email => {
         return Validator.isEmail(email)
