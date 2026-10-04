@@ -26,6 +26,6 @@ export { deleteTeam } from "./teams/deleteTeam.js"
 export { search } from "./search.js"
 
 export {createMatch} from "./matches/createMatch.js"
-export {getMatch} from "./matches/getMatch.js"
-export {getMatches} from "./matches/getMatches.js"
+export {getMatch, getPublicMatch} from "./matches/getMatch.js"
+export {getMatches, listMatches} from "./matches/getMatches.js"
 export {getMyMatches, sendMyMatches} from "./matches/myMatches.js"
