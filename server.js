@@ -14,13 +14,21 @@ const corsOptions = {
         "https://cric-scoring.netlify.app",
         "http://localhost:3000"
     ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}
+    credentials: true
+};
 
-app.options(/.*/, cors(corsOptions))
-app.use(cors(corsOptions))
+app.use((req, res, next) => {
+    console.log("METHOD:", req.method);
+    console.log("URL:", req.originalUrl);
+    console.log("ORIGIN:", req.headers.origin);
+    console.log("ACCESS-CONTROL-REQUEST-METHOD:", req.headers["access-control-request-method"]);
+    console.log("ACCESS-CONTROL-REQUEST-HEADERS:", req.headers["access-control-request-headers"]);
+
+    next();
+});
+
+app.use(cors(corsOptions));
+
 
 app.use(express.json())
 app.use(cookieParser())
