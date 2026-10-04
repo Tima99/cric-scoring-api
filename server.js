@@ -10,7 +10,7 @@ import socket, {io} from "./sockets.js"
 const app = express()
 
 const corsOptions = {
-    origin : ['https://cric-scoring.netlify.app', "http://localhost:3000"],
+    origin : ['https://cric-scoring.netlify.app','https://cric-scoring.netlify.app/', "http://localhost:3000"],
     credentials : true
 }
 
