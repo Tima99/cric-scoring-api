@@ -1,0 +1,32 @@
+[debug] [2026-10-04T14:57:43.111Z] : 
+[debug] [2026-10-04T14:57:43.112Z] : ----------------------------------------------------------------------
+[debug] [2026-10-04T14:57:43.112Z] : Command:      /home/ongraph/.nvm/versions/node/v22.23.2/bin/node /home/ongraph/.nvm/versions/node/v22.23.2/bin/catalyst deploy --only appsail
+[debug] [2026-10-04T14:57:43.113Z] : CLI Version:  1.28.0
+[debug] [2026-10-04T14:57:43.113Z] : Platform:     linux
+[debug] [2026-10-04T14:57:43.113Z] : Node Version: v22.23.2
+[debug] [2026-10-04T14:57:43.113Z] : Time:         Sun Oct 04 2026 20:27:43 GMT+0530 (India Standard Time)
+[debug] [2026-10-04T14:57:43.113Z] : ----------------------------------------------------------------------
+[debug] [2026-10-04T14:57:43.113Z] : 
+[debug] [2026-10-04T14:57:44.181Z] : > authorizing via signed-in user option
+[debug] [2026-10-04T14:57:44.182Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.functions.ALL","ZohoCatalyst.webapp.ALL","ZohoCatalyst.appsail.Update"]
+[debug] [2026-10-04T14:57:44.373Z] : > refreshing access token <
+[debug] [2026-10-04T14:57:44.375Z] : >>>> HTTP REQUEST : POST https://accounts.zoho.in/oauth/v2/token 
+<request body omitted>
+
+[debug] [2026-10-04T14:57:44.732Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sun, 04 Oct 2026 14:57:46 GMT","content-type":"application/json;charset=UTF-8","content-length":"2523","connection":"keep-alive","cache-control":"no-store","x-content-type-options":"nosniff","pragma":"no-cache","x-frame-options":"SAMEORIGIN","vary":"accept-encoding","content-language":"en-US","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-10-04T14:57:44.855Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/32992000000013051 
+
+[debug] [2026-10-04T14:57:45.227Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sun, 04 Oct 2026 14:57:47 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-10-04T14:57:45.230Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/32992000000013051/environment 
+
+[debug] [2026-10-04T14:57:45.336Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sun, 04 Oct 2026 14:57:47 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-10-04T14:57:46.217Z] : Compressing archive "Archive"...
+[debug] [2026-10-04T14:57:49.858Z] : Compressed archive "Archive" (8546305 bytes) in 3640ms
+[debug] [2026-10-04T14:57:49.881Z] : >>>> HTTP REQUEST : PUT https://api.catalyst.zoho.in/baas/v1/project/32992000000013051/appsail/upsert 
+
