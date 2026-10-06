@@ -12,7 +12,8 @@ const app = express()
 const corsOptions = {
     origin: [
         "https://cric-scoring.netlify.app",
-        "http://localhost:3000"
+        "https://cric-scoring.code26.site",
+        //"http://localhost:3000"
     ],
     credentials: true
 };
